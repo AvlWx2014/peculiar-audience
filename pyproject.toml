@@ -1,0 +1,35 @@
+
+[project]
+name = "peculiar-audience"
+version = "1.0.0.dev1"
+description = "A collection of Python functions on iterables and collections inspired by the Kotlin collections standard library API."
+authors = [
+    {name = "Ryan Smith", email = "ryan.d.smith.106@gmail.com"},
+]
+dependencies = []
+requires-python = ">=3.7"
+readme = "README.md"
+
+[build-system]
+requires = ["pdm-pep517>=1.0"]
+build-backend = "pdm.pep517.api"
+
+[tool.pdm.dev-dependencies]
+test = [
+    "PyHamcrest>=2.0.4",
+    "pytest>=7.3.1",
+    "pytest-cov>=4.1.0",
+]
+dev = [
+    "pre-commit>=2.21.0",
+]
+
+[tool.pytest.ini_options]
+addopts = [
+    "--cov=peculiar_audience",
+    "--cov-report=html",
+    "--cov-report=term",
+    "--cov-branch"
+]
+pythonpath = ["src"]
+testspath = ["tests"]
