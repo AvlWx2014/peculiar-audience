@@ -10,6 +10,7 @@ from peculiar_audience import (
     fold,
     sum_by, flatten, none,
 )
+from peculiar_audience._iterable import map_not_none
 
 
 @pytest.mark.parametrize(
@@ -62,6 +63,12 @@ def test_fold():
     expected = sum(inputs)
     actual = fold(inputs, 0, lambda x, y: x + y)
     assert_that(actual, equal_to(expected))
+
+
+def test_map_not_none():
+    expected = ["0", "2", "4", "6", "8"]
+    actual = map_not_none(range(10), lambda i: str(i) if i % 2 == 0 else None)
+    assert_that(actual, contains_exactly(*expected))
 
 
 @pytest.mark.parametrize(

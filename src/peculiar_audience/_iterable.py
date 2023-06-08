@@ -67,6 +67,16 @@ def fold(
     return acc
 
 
+def map_not_none(iterable: Iterable[T], mapping: Callable[[T], Optional[R]]) -> List[R]:
+    """Map items in ``iterable`` according to ``mapping``, filtering out any ``None`` values."""
+    result = []
+    for item in iterable:
+        mapped = mapping(item)
+        if mapped is not None:
+            result.append(mapped)
+    return result
+
+
 def none(iterable: Iterable[T], predicate: Callable[[T], bool]) -> bool:
     """Returns ``True`` if no item in iterable matches ``predicate`` and ``False`` otherwise."""
     for item in iterable:
