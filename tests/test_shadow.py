@@ -1,7 +1,7 @@
 import pytest as pytest
 from hamcrest import assert_that, contains_exactly, is_
 
-from peculiar_audience.shadow import all, any, map, __pyall, __pyany, __pymap
+from peculiar_audience.shadow import all, any, filter, map, __pyall, __pyany, __pymap, __pyfilter
 
 
 @pytest.mark.parametrize(
@@ -35,6 +35,19 @@ def test_any(iterable, predicate, expected):
     actual = any(iterable, predicate)
     assert_that(actual, is_(expected))
     assert_that(actual, is_(compat))
+
+
+def test_filter():
+    iterable = range(11)
+    expected = [0, 2, 4, 6, 8, 10]
+
+    def _is_even(num: int) -> bool:
+        return not num % 2
+
+    compat = __pyfilter(_is_even, iterable)
+    actual = filter(iterable, _is_even)
+    assert_that(actual, contains_exactly(*expected))
+    assert_that(actual, contains_exactly(*compat))
 
 
 def test_map():
